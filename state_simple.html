@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>state</title>
+</head>
+
+<body>
+
+    <h2>Add React in One Minute</h2>
+    <p>This page demonstrates using React with no build tooling.</p>
+    <p>React is loaded as a script tag.</p>
+
+    <!-- We will put our React component inside this div. -->
+    <div id="root" style="color:orange; background-color: aquamarine; font-family:Arial;"></div>
+    <div id="list"></div>
+    <div id="like_button_container"></div>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src=" https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!--  < script src="like_button.js" ></script> -->
+    <!-- <script src="demo.js"></script> -->
+    <script type="text/babel">
+
+
+        class MyComponent extends React.Component {
+            // 不用写constructor, bind
+            // key-value
+            state = { isHOT: true, wind: 'crazy' }
+
+            // render方法 this-.组件实例对象
+            render() {
+                const { isHOT, wind } = this.state
+                return <div onClick={this.changeWeather}> Today is so {isHOT ? "HOT" : "COLD"} ,{wind}</div >
+            }
+
+            // 自定义方法 - this-> undefined
+            // 1 bind 
+            // 2 赋值语句+ 箭头函数 this -> object
+            changeWeather = () => {
+                //不能直接修改state 要用setState
+                this.setState({ isHOT: !this.state.isHOT, wind: 'small' })
+            }
+        }
+
+        ReactDOM.render(<MyComponent />, document.getElementById("root"));
+    </script>
+
+</body>
+
+</html>
