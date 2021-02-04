@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>state</title>
+</head>
+
+<body>
+
+    <h2>Add React in One Minute</h2>
+    <p>This page demonstrates using React with no build tooling.</p>
+    <p>React is loaded as a script tag.</p>
+
+    <!-- We will put our React component inside this div. -->
+    <div id="root" style="color:orange; background-color: aquamarine; font-family:Arial;"></div>
+    <div id="test1"></div>
+    <div id="test2"></div>
+    <div id="like_button_container"></div>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src=" https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./node_modules/prop-types/prop-types.min.js"></script>
+    <!--  < script src="like_button.js" ></script> -->
+    <!-- <script src="demo.js"></script> -->
+    <script type="text/babel">
+
+
+        class Person extends React.Component {
+
+            constructor(props) {
+                super(props);
+
+            }
+
+            speak() {
+                console.log("I am ", { name })
+            }
+            static propTypes = {
+                name: PropTypes.string.isRequired,
+                age: PropTypes.number,
+                sex: PropTypes.bool,
+                speak: PropTypes.func
+            }
+
+            static defaultProps = {
+                name: 'Yao',
+                age: 1,
+                sex: "unknown",
+            }
+
+            render() {
+                const { name, age, sex } = this.props
+                return (
+                    <ul>
+                        <li>Name: {name} </li>
+                        <li>Age: {age}</li>
+                        <li>Sex: {sex}</li>
+                    </ul>
+                )
+            }
+        }
+
+
+
+        ReactDOM.render(<Person name="Emily" age={18} sex="F" speak={1} />, document.getElementById("root"));
+        ReactDOM.render(<Person age={18} sex="F" />, document.getElementById("test1"));
+
+        const p = { name: "Lu", age: '30' }
+        ReactDOM.render(<Person {...p} />, document.getElementById("test2"));
+
+    </script>
+
+</body>
+
+</html>
