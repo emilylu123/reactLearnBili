@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>回调函数ref</title>
+    <title>非受控表单组件</title>
 </head>
 
 <body>
@@ -16,7 +16,7 @@
     <div id="root" style="color:orange; background-color: aquamarine; font-family:Arial;"></div>
     <div id="test1"></div>
     <div id="test2"></div>
-    <div id="like_button_container"></div>
+
 
     <!-- Load React. -->
     <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
@@ -28,31 +28,29 @@
     <!-- <script src="demo.js"></script> -->
     <script type="text/babel">
 
-        class Demo extends React.Component {
-            //要写多个createRef 专人专用
-            myRef = React.createRef()
-            myRef2 = React.createRef()
-
-            showData = () => {
-                alert(this.myRef.current.value)
+        class Login extends React.Component {
+            // 非受控表单组件
+            handleSubmit = (event) => {
+                event.preventDefault()
+                const { username, password } = this
+                alert(`Your User Name is ${username.value}. Your password is ${password.value}`)
             }
-            showData2 = () => {
-                alert(this.myRef2.current.value)
-            }
-
 
             render() {
                 return (
-                    <div>
-                        <input ref={this.myRef} type='text' placeholder="alert when click button" /> &nbsp;
-                        <button onClick={this.showData}> Click Me </button> &nbsp;
-                        <input ref={this.myRef2} onBlur={this.showData2} type='text' placeholder="alert when lose focus" /> &nbsp;
-                    </div>
+                    <form action="http://yingyao.codes" onSubmit={this.handleSubmit}>
+                        <label>User Name: </label>
+                        <input ref={c => this.username = c} type='text' placeholder='User Name' name='username' />
+                        <label>Password: </label>
+                        <input ref={c => this.password = c} id='password' type='password' placeholder='Password' name='password' />
+                        <button type='submit'>  Submit </button>
+
+                    </form>
                 )
             }
 
         }
-        ReactDOM.render(<Demo />, document.getElementById("root"))
+        ReactDOM.render(<Login />, document.getElementById("test1"))
     </script>
 
 </body>

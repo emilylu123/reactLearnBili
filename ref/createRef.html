@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>createRef</title>
+</head>
+
+<body>
+
+    <h2>Add React in One Minute</h2>
+    <p>This page demonstrates using React with no build tooling.</p>
+    <p>React is loaded as a script tag.</p>
+
+    <!-- We will put our React component inside this div. -->
+    <div id="root" style="color:orange; background-color: aquamarine; font-family:Arial;"></div>
+    <div id="test1"></div>
+    <div id="test2"></div>
+    <div id="like_button_container"></div>
+
+    <!-- Load React. -->
+    <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src=" https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="./node_modules/prop-types/prop-types.min.js"></script>
+    <!--  < script src="like_button.js" ></script> -->
+    <!-- <script src="demo.js"></script> -->
+    <script type="text/babel">
+
+        class Demo extends React.Component {
+            //要写多个createRef 专人专用
+            myRef = React.createRef()
+            myRef2 = React.createRef()
+
+            showData = () => {
+                alert(this.myRef.current.value)
+            }
+
+            // event事件处理 因为value和event在同一个DOM元素上
+            showData2 = (event) => {
+                alert(event.target.value);
+            }
+
+            render() {
+                return (
+                    <div>
+                        <input ref={this.myRef} type='text' placeholder="alert when click button" /> &nbsp;
+                        <button onClick={this.showData}> Click Me </button> &nbsp;
+                        <input onBlur={this.showData2} type='text' placeholder="alert when lose focus" /> &nbsp;
+                    </div>
+                )
+            }
+
+        }
+        ReactDOM.render(<Demo />, document.getElementById("root"))
+    </script>
+
+</body>
+
+</html>
