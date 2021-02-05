@@ -29,35 +29,33 @@
   <script type="text/babel">
 
     class Login extends React.Component {
-      state = {
-        username: '',
-        password: ''
-      }
-      // 高阶函数 - 1.接受的参数式一个函数 or 2.调用的返回值是一个函数
-      // 函数柯里化 curring
-      // 把接受多个参数的函数变换成接受一个单一参数（最初函数的第一个参数）的函数，并且返回接受余下的参数而且返回结果的新函数，
-      saveFormData = (dataType, event) => {
-        this.setState({ [dataType]: event.target.value })  // object - [ ]
+      state = { opacity: 1 }
+
+      done = () => {
+        ReactDOM.unmountComponentAtNode(document.getElementById('test1'))
       }
 
+      componentDidMount() {
+        this.timer = setInterval(() => {
+          let { opacity } = this.state
+          opacity -= 0.1
+          if (opacity <= 0) opacity = 1
+          this.setState({ opacity })
+        }, 200);
 
-      // 受控表单组件
-      handleSubmit = (event) => {
-        event.preventDefault()
-        const { username, password } = this.state   // not this
-        // 不是.value
-        alert(`Your User Name is ${username}. Your password is ${password}`)
       }
+
+      componentWillUnmount() {
+        clearInterval(this.timer)
+      }
+
 
       render() {
         return (
-          <form action="http://yingyao.codes" onSubmit={this.handleSubmit}>
-            <label>User Name: </label>
-            <input onChange={event => this.saveFormData('username', event)} type='text' placeholder='Username' name='username' />
-            <label>Password: </label>
-            <input onChange={event => this.saveFormData('password', event)} type='password' placeholder='Password' name='password' />
-            <button type='submit'>  Submit </button>
-          </form>
+          <div>
+            <h1 style={{ opacity: this.state.opacity }}>This is so hard</h1>
+            <button onClick={this.done}> I'm done </button>
+          </div>
         )
       }
     }
